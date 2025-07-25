@@ -1,0 +1,16 @@
+FROM pdftk/pdftk
+
+# Install poppler-utils for PDF to text conversion (using apk)
+RUN apk add --no-cache poppler-utils pandoc
+
+# Set up volume directories
+VOLUME ["/i", "/o"]
+
+# Set the working directory
+WORKDIR /i
+
+# Entry point script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
